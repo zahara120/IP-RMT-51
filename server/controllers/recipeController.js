@@ -1,5 +1,7 @@
 const { Op } = require("sequelize");
 const { Recipe, User, Review } = require("../models");
+const openAI = require("../helpers/openai");
+const gemini = require("../helpers/gemini");
 class RecipeController {
   static async getRecipe(req, res, next) {
     try {
@@ -76,6 +78,19 @@ class RecipeController {
       });
       if (!data) throw { name: "notFound" };
       res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getAIRecommendedRecipes(req, res, next) {
+    try {
+      // let responseOpenAI = await openAI();
+      // console.log(responseOpenAI, '<<< responseOpenAI');
+      const { ingredients } = req.body;
+      let responseGemini = await gemini(ingredients);
+      responseGemini = JSON.parse(responseGemini);
+      res.status(200).json(responseGemini); 
     } catch (error) {
       next(error);
     }

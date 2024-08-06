@@ -13,6 +13,9 @@ recipe.get("/:id", RecipeController.getRecipeById);
 recipe.use(authentication);
 recipe.post("/", RecipeController.createRecipe);
 
+// AI
+recipe.post("/ai-search", RecipeController.getAIRecommendedRecipes);
+
 // review
 recipe.post("/:id/reviews", RecipeController.addReview);
 
