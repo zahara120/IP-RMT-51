@@ -89,15 +89,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     viewsCount: {
       type:DataTypes.INTEGER,
-      allowNull:false,
-      validate:{
-        notEmpty:{
-          msg : 'viewsCount is required'
-        },
-        notNull:{
-          msg : 'viewsCount is required'
-        }
-      }
     }
   }, {
     sequelize,
