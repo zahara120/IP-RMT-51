@@ -1,4 +1,5 @@
-const { Recipe, User } = require("../models");
+const { Op } = require("sequelize");
+const { Recipe, User, Review } = require("../models");
 class RecipeController {
   static async getRecipe(req, res, next) {
     try {
@@ -7,6 +8,51 @@ class RecipeController {
           {
             model: User,
             attributes: { exclude: ["password"] },
+          },
+          {
+            model: Review,
+            include: [
+              {
+                model: User,
+                attributes: { exclude: ["password"] },
+              },
+            ],
+          },
+        ],
+      });
+      res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getPopularRecipe(req, res, next) {
+    try {
+      // search top tree recipe
+      let data = await Recipe.findAll({
+        where: { viewsCount: { [Op.gt]: 1000 } },
+        order: [["viewsCount", "DESC"]],
+        limit: 3,
+        include: [
+          {
+            model: Review,
+          },
+        ],
+      });
+      res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getMyRecipe(req, res, next) {
+    try {
+      const UserId = req.user.id;
+      let data = await Recipe.findAll({
+        where: { UserId },
+        include: [
+          {
+            model: Review,
           },
         ],
       });
@@ -82,9 +128,25 @@ class RecipeController {
 
       if (!data) throw { name: "notFound" };
 
-      await data.destroy()
+      await data.destroy();
 
       res.status(200).json({ message: "Recipe has been deleted" });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async addReview(req, res, next) {
+    try {
+      const { id } = req.params;
+      const UserId = req.user.id;
+      const { rating, comment } = req.body;
+
+      let recipe = await Recipe.findByPk(id);
+      if (!recipe) throw { name: "notFound" };
+
+      await Review.create({ rating, comment, RecipeId: id, UserId });
+      res.status(201).json({ message: "Review has been added" });
     } catch (error) {
       next(error);
     }

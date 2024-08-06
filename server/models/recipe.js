@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Recipe.hasMany(models.Review)
       Recipe.belongsTo(models.User)
     }
   }
