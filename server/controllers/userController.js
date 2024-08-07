@@ -85,6 +85,8 @@ class UserController {
   static async donation(req, res, next) {
     try {
       const { amount } = req.body;
+      if (!amount) throw { name: "amountIsRequired" };
+      
       const orderId = `DNT-${uuidv4()}`;
 
       // Create Snap API instance

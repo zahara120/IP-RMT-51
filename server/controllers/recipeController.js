@@ -30,16 +30,26 @@ class RecipeController {
 
   static async getPopularRecipe(req, res, next) {
     try {
-      // search top tree recipe
+      // search top tree recipe by viewsCount
       let data = await Recipe.findAll({
         where: { viewsCount: { [Op.gt]: 1000 } },
         order: [["viewsCount", "DESC"]],
         limit: 3,
         include: [
           {
-            model: Review,
+            model: User,
+            attributes: { exclude: ["password"] },
           },
-        ],
+          {
+            model: Review,
+            include: [
+              {
+                model: User,
+                attributes: { exclude: ["password"] },
+              },
+            ],
+          },
+        ]
       });
       res.status(200).json(data);
     } catch (error) {
@@ -55,6 +65,12 @@ class RecipeController {
         include: [
           {
             model: Review,
+            include: [
+              {
+                model: User,
+                attributes: { exclude: ["password"] },
+              },
+            ],
           },
         ],
       });
@@ -88,6 +104,8 @@ class RecipeController {
       // let responseOpenAI = await openAI();
       // console.log(responseOpenAI, '<<< responseOpenAI');
       const { ingredients } = req.body;
+      if (!ingredients) throw { name: "ingredientsIsRequired" };
+      
       let responseGemini = await gemini(ingredients);
       responseGemini = JSON.parse(responseGemini);
       res.status(200).json(responseGemini); 

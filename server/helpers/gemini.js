@@ -8,7 +8,7 @@ const gemini = async (ingredients) => {
     generationConfig: { responseMimeType: "application/json" },
   });
 
-    const prompt = `
+  const prompt = `
       berikan resep sederhana dari bahan berikut: ${ingredients},
       berikan dalam bentuk json seperti ini:
       {
@@ -17,7 +17,6 @@ const gemini = async (ingredients) => {
           "ingredients": ",
           "steps": "",
           "cookTime": (dalam detik),
-          "viewsCount": (0-10000)
       }
     `;
 

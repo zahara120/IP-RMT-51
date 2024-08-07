@@ -16,6 +16,14 @@ const errorHandler = (error, req, res, next) => {
       status = 400;
       message = "password is required";
       break;
+    case "amountIsRequired":
+      status = 400;
+      message = "amount is required";
+      break;
+    case "ingredientsIsRequired":
+      status = 400;
+      message = "ingredients is required";
+      break;
     case "unauthenticated":
     case "JsonWebTokenError":
       status = 401;
