@@ -1,7 +1,7 @@
 const RecipeController = require("../controllers/recipeController");
 const authentication = require("../middlewares/authentication");
 const { authorization } = require("../middlewares/authorization");
-
+const upload = require('../helpers/multer')
 const recipe = require("express").Router();
 
 recipe.get("/", RecipeController.getRecipe);
@@ -11,7 +11,7 @@ recipe.get("/:id", RecipeController.getRecipeById);
 
 // authentication
 recipe.use(authentication);
-recipe.post("/", RecipeController.createRecipe);
+recipe.post("/", upload.single('img'), RecipeController.createRecipe);
 
 // AI
 recipe.post("/ai-search", RecipeController.getAIRecommendedRecipes);

@@ -2,10 +2,17 @@ const { Op } = require("sequelize");
 const { Recipe, User, Review } = require("../models");
 const openAI = require("../helpers/openai");
 const gemini = require("../helpers/gemini");
+const { v2: cloudinary } = require("cloudinary");
+
+cloudinary.config({
+  cloud_name: process.env.cloudinary_cloud_name,
+  api_key: process.env.cloudinary_api_key,
+  api_secret: process.env.cloudinary_api_secret,
+});
 class RecipeController {
   static async getRecipe(req, res, next) {
     try {
-      const { search, keyword, sort, page } = req.query
+      const { search, keyword, sort, page } = req.query;
       let data = await Recipe.getAllData(search, keyword, sort, page);
       res.status(200).json(data);
     } catch (error) {
@@ -34,7 +41,7 @@ class RecipeController {
               },
             ],
           },
-        ]
+        ],
       });
       res.status(200).json(data);
     } catch (error) {
@@ -90,10 +97,10 @@ class RecipeController {
       // console.log(responseOpenAI, '<<< responseOpenAI');
       const { ingredients } = req.body;
       if (!ingredients) throw { name: "ingredientsIsRequired" };
-      
+
       let responseGemini = await gemini(ingredients);
       responseGemini = JSON.parse(responseGemini);
-      res.status(200).json(responseGemini); 
+      res.status(200).json(responseGemini);
     } catch (error) {
       next(error);
     }
@@ -102,6 +109,16 @@ class RecipeController {
   static async createRecipe(req, res, next) {
     try {
       const UserId = req.user.id;
+      let result;
+
+      if (req.file) {
+        const img = req.file;
+        const imgBase64 = img.buffer.toString("base64");
+
+        result = await cloudinary.uploader.upload(
+          `data:${img.mimetype};base64,${imgBase64}`
+        );
+      }
 
       let { title, description, ingredients, steps, cookTime } = req.body;
       let data = await Recipe.create({
@@ -111,6 +128,7 @@ class RecipeController {
         steps,
         cookTime,
         UserId,
+        imageUrl: result?.secure_url,
       });
       res.status(201).json(data);
     } catch (error) {

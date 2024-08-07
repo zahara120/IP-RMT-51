@@ -146,6 +146,9 @@ module.exports = (sequelize, DataTypes) => {
       viewsCount: {
         type: DataTypes.INTEGER,
       },
+      imageUrl: {
+        type: DataTypes.STRING,
+      },
     },
     {
       sequelize,
