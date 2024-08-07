@@ -140,6 +140,17 @@ class RecipeController {
     try {
       let { id } = req.params;
       let { title, description, ingredients, steps, cookTime } = req.body;
+      let result;
+
+      if (req.file) {
+        const img = req.file;
+        
+        const imgBase64 = img.buffer.toString("base64");
+
+        result = await cloudinary.uploader.upload(
+          `data:${img.mimetype};base64,${imgBase64}`
+        );
+      }
 
       let recipe = await Recipe.findByPk(id);
       if (!recipe) throw { name: "notFound" };
@@ -150,6 +161,7 @@ class RecipeController {
         ingredients,
         steps,
         cookTime,
+        imageUrl: result?.secure_url,
       });
       res.status(200).json(data);
     } catch (error) {

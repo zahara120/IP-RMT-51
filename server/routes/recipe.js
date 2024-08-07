@@ -20,7 +20,7 @@ recipe.post("/ai-search", RecipeController.getAIRecommendedRecipes);
 recipe.post("/:id/reviews", RecipeController.addReview);
 
 // authorization
-recipe.put("/:id", authorization, RecipeController.updateRecipe);
+recipe.put("/:id", authorization, upload.single('img'), RecipeController.updateRecipe);
 recipe.delete("/:id", authorization, RecipeController.deleteRecipe);
 
 module.exports = recipe;
