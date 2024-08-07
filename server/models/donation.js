@@ -11,23 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Donation.belongsTo(models.Recipe)
       Donation.belongsTo(models.User)
     }
   }
   Donation.init({
-    RecipeId: {
-      type:DataTypes.INTEGER,
-      allowNull:false,
-      validate:{
-        notEmpty:{
-          msg : 'RecipeId is required'
-        },
-        notEmpty:{
-          msg: 'RecipeId is required'
-        }
-      }
-    },
     UserId: {
       type:DataTypes.INTEGER,
       allowNull:false,
@@ -42,15 +29,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     amount: {
       type:DataTypes.DECIMAL,
-      allowNull:false,
-      validate:{
-        notEmpty:{
-          msg : 'amount is required'
-        },
-        notEmpty:{
-          msg: 'amount is required'
-        }
-      }
+      // allowNull:false,
+      // validate:{
+      //   notEmpty:{
+      //     msg : 'amount is required'
+      //   },
+      //   notEmpty:{
+      //     msg: 'amount is required'
+      //   }
+      // }
     },
     paymentStatus: {
       type:DataTypes.STRING,
@@ -63,6 +50,9 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'paymentStatus is required'
         }
       }
+    },
+    qrCodeUrl: {
+      type:DataTypes.STRING
     }
   }, {
     sequelize,

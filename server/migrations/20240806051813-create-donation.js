@@ -9,13 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      RecipeId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Recipes',
-        }
-      },
       UserId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -31,6 +24,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         defaultValue: 'Pending'
+      },
+      qrCodeUrl: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
