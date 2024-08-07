@@ -2,6 +2,8 @@ const { User } = require("../models");
 const { comparePassword } = require("../helpers/bcrypt");
 const { generateToken } = require("../helpers/jwt");
 const { OAuth2Client } = require("google-auth-library");
+const midtransClient = require("midtrans-client");
+const { v4: uuidv4 } = require('uuid');
 
 class UserController {
   static async register(req, res, next) {
@@ -75,6 +77,34 @@ class UserController {
       res.status(200).json({
         token,
         email: payload.email,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  static async donation(req, res, next) {
+    try {
+      const { amount } = req.body;
+      const orderId = `DNT-${uuidv4()}`;
+
+      // Create Snap API instance
+      let snap = new midtransClient.Snap({
+        isProduction: false,
+        serverKey: process.env.MIDTRANS_SERVER_KEY,
+      });
+
+      let parameter = {
+        transaction_details: {
+          order_id: orderId,
+          gross_amount: amount,
+        },
+      };
+
+      const transaction = await snap.createTransaction(parameter)
+      let transactionToken = transaction.token
+
+      res.status(200).json({
+        transactionToken
       });
     } catch (error) {
       next(error);

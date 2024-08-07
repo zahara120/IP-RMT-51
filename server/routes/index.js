@@ -8,6 +8,8 @@ router.post('/register', UserController.register)
 router.post('/login', UserController.login)
 router.post('/google-login', UserController.googleLogin)
 
+router.post('/donation', UserController.donation)
+
 router.use('/recipes', recipe)
 
 router.use(errorHandler)
