@@ -17,18 +17,22 @@ describe("GET /recipes", () => {
   test("berhasil mendapatkan data recipe", async () => {
     let { status, body } = await request(app).get("/recipes");
     expect(status).toBe(200);
-    expect(body[0]).toHaveProperty("id", expect.any(Number));
-    expect(body[0]).toHaveProperty("title", expect.any(String));
-    expect(body[0]).toHaveProperty("description", expect.any(String));
-    expect(body[0]).toHaveProperty("ingredients", expect.any(String));
-    expect(body[0]).toHaveProperty("steps", expect.any(String));
-    expect(body[0]).toHaveProperty("cookTime", expect.any(Number));
-    expect(body[0]).toHaveProperty("viewsCount", expect.any(Number));
-    expect(body[0].User).toHaveProperty("id", expect.any(Number));
-    expect(body[0].User).toHaveProperty("username", "admin");
-    expect(body[0].User).toHaveProperty("email", "admin@mail.com");
-    expect(body[0].User).not.toHaveProperty("password");
-    expect(body[0]).toHaveProperty("Reviews");
+    expect(body).toHaveProperty("page", 1)
+    expect(body).toHaveProperty("data")
+    expect(body).toHaveProperty("totalData", 1)
+    expect(body).toHaveProperty("totalPage", 1)
+    expect(body.data[0]).toHaveProperty("id", expect.any(Number));
+    expect(body.data[0]).toHaveProperty("title", expect.any(String));
+    expect(body.data[0]).toHaveProperty("description", expect.any(String));
+    expect(body.data[0]).toHaveProperty("ingredients", expect.any(String));
+    expect(body.data[0]).toHaveProperty("steps", expect.any(String));
+    expect(body.data[0]).toHaveProperty("cookTime", expect.any(Number));
+    expect(body.data[0]).toHaveProperty("viewsCount", expect.any(Number));
+    expect(body.data[0].User).toHaveProperty("id", expect.any(Number));
+    expect(body.data[0].User).toHaveProperty("username", "admin");
+    expect(body.data[0].User).toHaveProperty("email", "admin@mail.com");
+    expect(body.data[0].User).not.toHaveProperty("password");
+    expect(body.data[0]).toHaveProperty("Reviews");
   });
 });
 

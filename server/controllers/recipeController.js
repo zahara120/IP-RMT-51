@@ -5,23 +5,8 @@ const gemini = require("../helpers/gemini");
 class RecipeController {
   static async getRecipe(req, res, next) {
     try {
-      let data = await Recipe.findAll({
-        include: [
-          {
-            model: User,
-            attributes: { exclude: ["password"] },
-          },
-          {
-            model: Review,
-            include: [
-              {
-                model: User,
-                attributes: { exclude: ["password"] },
-              },
-            ],
-          },
-        ],
-      });
+      const { search, keyword, sort, page } = req.query
+      let data = await Recipe.getAllData(search, keyword, sort, page);
       res.status(200).json(data);
     } catch (error) {
       next(error);
