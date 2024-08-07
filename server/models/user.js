@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(models.Recipe);
       User.hasMany(models.Review);
-      User.hasMany(models.Donation);
     }
   }
   User.init(
