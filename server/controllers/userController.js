@@ -73,7 +73,7 @@ class UserController {
         },
       });
       // ? generate jwt
-      const token = generateJwt(user.id);
+      const token = generateToken(user.id);
       res.status(200).json({
         token,
         email: payload.email,
