@@ -47,23 +47,11 @@ export const Navbar = (props) => {
         <div className="flex content-center justify-between gap-4 py-4 border-b-2 border-slate-200">
           <FontAwesomeIcon icon="fa-solid fa-bars" />
           <div className="hidden md:flex align-items gap-12 text-slate-400">
+            <a href="#popular" className="hover:font-bold">
+              Popular
+            </a>
             <a href="#all" className="hover:font-bold">
-              Food
-            </a>
-            <a href="#" className="hover:font-bold">
-              Lifestyle
-            </a>
-            <a href="#" className="hover:font-bold">
-              Traveling
-            </a>
-            <a href="#" className="hover:font-bold">
-              Health
-            </a>
-            <a href="#" className="hover:font-bold">
-              Technology
-            </a>
-            <a href="#" className="hover:font-bold">
-              Business
+              Galery
             </a>
           </div>
           <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
