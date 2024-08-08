@@ -82,7 +82,17 @@ class RecipeController {
             model: User,
             attributes: { exclude: ["password"] },
           },
+          {
+            model: Review,
+            include: [
+              {
+                model: User,
+                attributes: { exclude: ["password"] },
+              },
+            ],
+          },
         ],
+        order: [[Review, "createdAt", "DESC"]],
       });
       if (!data) throw { name: "notFound" };
       res.status(200).json(data);
@@ -144,7 +154,7 @@ class RecipeController {
 
       if (req.file) {
         const img = req.file;
-        
+
         const imgBase64 = img.buffer.toString("base64");
 
         result = await cloudinary.uploader.upload(
