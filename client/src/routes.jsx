@@ -1,32 +1,29 @@
 import { createBrowserRouter, redirect } from "react-router-dom";
 import { Login } from "./pages/auth/Login";
 import { Register } from "./pages/auth/Register";
-import Welcome from "./pages/auth/Welcome";
 import MainLayout from "./layouts/Main";
+import Welcome from "./pages/Welcome";
+import { Home } from "./pages/Home";
 
 export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Welcome />,
+  },
+  {
+    path: "/login",
+    loader: () => {
+      const isLogin = localStorage.getItem("token");
+      return isLogin ? redirect("/") : null;
+    },
+    element: <Login />,
+  },
   {
     element: <MainLayout />,
     children: [
       {
-        path: "/",
-        element: <Welcome />,
-      },
-      {
-        path: "/login",
-        loader: () => {
-          const isLogin = localStorage.getItem("token");
-          return isLogin ? redirect("/") : null;
-        },
-        element: <Login />,
-      },
-      {
         path: "/home",
-        element: (
-          <>
-            <h1> ini homepage</h1>
-          </>
-        ),
+        element: <Home />,
       },
     ],
   },

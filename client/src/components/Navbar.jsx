@@ -15,14 +15,15 @@ export const Navbar = (props) => {
   };
 
   useEffect(() => {
-    isLogin ? getData() : '';
+    // isLogin ? getData() : '';
   }, []);
   return (
     <>
       <div className="flex flex-col">
         <nav className="flex justify-between items-center py-2 border-b-2 border-slate-200">
           <span className="w-[110px] overflow-hidden whitespace-nowrap text-ellipsis">
-            hello, {user ? user.username : "there"}
+            {/* hello, {user ? user.username : "there"} */}
+            hello,
           </span>
           <div className="flex-grow text-center">
             <h1 className="text-3xl">

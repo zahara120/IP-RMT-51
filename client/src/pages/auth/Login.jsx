@@ -113,13 +113,14 @@ export const Login = (props) => {
                 onChange={handleChange}
               />
               <Button
-                className="bg-black text-white w-full font-bold"
+                className="bg-indigo-500 text-white w-full font-bold"
                 variant="flat"
                 type="submit"
                 onClick={(e) => handleSubmit(e)}
               >
                 Sign in
               </Button>
+              <p className="text-center">or login with</p>
               <GoogleLogin
                 onSuccess={async (credentialResponse) => {
                   try {
@@ -142,7 +143,7 @@ export const Login = (props) => {
                 }}
                 useOneTap
               />
-              <Link to="/" className="font-bold text-slate-500 hover:underline">
+              <Link to="/home" className="font-bold text-slate-500 hover:underline">
                 Back to Home
               </Link>
             </div>
