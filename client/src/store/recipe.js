@@ -14,7 +14,7 @@ const recipesSlice = createSlice({
       description: "",
       ingredients: "",
       steps: "",
-      cookTime: ""
+      cookTime: "",
     },
     isLoading: false,
   },
@@ -44,7 +44,7 @@ const recipesSlice = createSlice({
         description: "",
         ingredients: "",
         steps: "",
-        cookTime: ""
+        cookTime: "",
       };
     },
     setLoading(state, action) {
@@ -248,6 +248,38 @@ export const fetchAiRecipe = (ingredients) => {
     } catch (error) {
       dispatch(setLoading(false));
       toast.error(error.response.data.message || error.message);
+    }
+  };
+};
+
+export const addReview = (id, formData) => {
+  return async (dispatch) => {
+    try {
+      dispatch(setLoading(true));
+      const { data } = await axios({
+        method: "post",
+        url: `/recipes/${id}/reviews`,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        data: formData,
+      });
+      dispatch(fetchDetails(id));
+      dispatch(setLoading(false));
+      toast.success(data.message);
+      return data;
+    } catch (error) {
+      dispatch(setLoading(false));
+      if (
+        Array.isArray(error.response.data.message) &&
+        error.response.data.message.length > 1
+      ) {
+        error.response.data.message.forEach((e) => {
+          toast.error(e);
+        });
+      } else {
+        toast.error(error.response.data.message || error.message);
+      }
     }
   };
 };

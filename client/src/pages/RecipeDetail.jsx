@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchDetails } from "../store/recipe";
 import axios from "../../utils/axios";
 import { toast } from "react-toastify";
+import ReviewCard from "../components/ReviewCard";
 
 export const RecipeDetail = (props) => {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ export const RecipeDetail = (props) => {
           <h1 className="text-3xl">{data.title}</h1>
           <div className="flex justify-between items-center gap-2">
             <span className="flex items-center gap-2">
-              <Avatar src={data?.User?.imageUrl} />
+              <Avatar src="https://d2u8k2ocievbld.cloudfront.net/memojis/male/1.png" />
               By: {data?.User?.username}
               <Button
                 className="animate-bounce"
@@ -86,6 +87,7 @@ export const RecipeDetail = (props) => {
           <p className="text-justify w-full">Instructions: {data?.steps}</p>
         </div>
       </div>
+      <ReviewCard data={data} />
     </>
   );
 };
