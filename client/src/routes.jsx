@@ -5,6 +5,7 @@ import MainLayout from "./layouts/Main";
 import Welcome from "./pages/Welcome";
 import { Home } from "./pages/Home";
 import { RecipeDetail } from "./pages/RecipeDetail";
+import ListMyRecipe from "./pages/ListMyRecipe";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,14 @@ export const router = createBrowserRouter([
       {
         path: "/details/:id",
         element: <RecipeDetail />,
+      },
+      {
+        path: "/my-recipe",
+        loader: () => {
+          const isLogin = localStorage.getItem("token");
+          return !isLogin ? redirect("/login") : null;
+        },
+        element: <ListMyRecipe />,
       },
     ],
   },

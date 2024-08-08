@@ -1,22 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
-import axios from "../../utils/axios";
+import {
+  Button,
+} from "@nextui-org/react";
+import { googleLogout } from '@react-oauth/google';
 
 export const Navbar = (props) => {
-  const [user, setUser] = useState([]);
-
   const isLogin = localStorage.getItem("token");
-  const email = localStorage.getItem("email");
+  const nav = useNavigate();
 
-  const getData = async () => {
-    const { data } = await axios.get(`/pub/users/${email}`);
-    setUser(data);
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
+    googleLogout();
+    nav("/");
   };
 
-  useEffect(() => {
-    // isLogin ? getData() : '';
-  }, []);
   return (
     <>
       <div className="flex flex-col">
@@ -28,29 +27,49 @@ export const Navbar = (props) => {
               </Link>
             </h1>
           </div>
+        </nav>
+        <div className="flex items-center justify-between gap-4 py-4 border-b-2 border-slate-200">
+          <div className="hidden md:flex items-center gap-12 text-slate-400">
+            <Link to="/home#popular" className="hover:font-bold">
+              Popular
+            </Link>
+            <Link to="/home#all" className="hover:font-bold">
+              Gallery
+            </Link>
+          </div>
           <div className="flex gap-4">
-            {/* {!isLogin ? (
+            {!isLogin ? (
               <Link to="/login">
                 <Button>Login</Button>
               </Link>
             ) : (
-              <Link to="/cms/news">
-                <Button>CMS</Button>
-              </Link>
-            )} */}
+              <>
+                <Button
+                  as={Link}
+                  to="/my-recipe"
+                  className="bg-indigo-500 text-white flex items-center gap-2"
+                >
+                  My Recipe
+                  <span className="relative flex h-5 w-5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75">
+                      ✨
+                    </span>
+                    <span className="relative inline-flex rounded-full h-5 w-5">
+                      ✨
+                    </span>
+                  </span>
+                </Button>
+                <Button
+                  onPress={() => handleLogout()}
+                  variant="flat"
+                  color="danger"
+                  isIconOnly
+                >
+                  <FontAwesomeIcon icon="fa-solid fa-right-from-bracket" />
+                </Button>
+              </>
+            )}
           </div>
-        </nav>
-        <div className="flex content-center justify-between gap-4 py-4 border-b-2 border-slate-200">
-          <FontAwesomeIcon icon="fa-solid fa-bars" />
-          <div className="hidden md:flex align-items gap-12 text-slate-400">
-            <a href="#popular" className="hover:font-bold">
-              Popular
-            </a>
-            <a href="#all" className="hover:font-bold">
-              Galery
-            </a>
-          </div>
-          <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
         </div>
       </div>
     </>
