@@ -1,0 +1,92 @@
+[
+  {
+    "UserId": 1,
+    "title": "Beef Stroganoff",
+    "description": "Bake at 350°F for 30 minutes",
+    "ingredients": "flour",
+    "steps": "Chop onions",
+    "cookTime": 20923,
+    "viewsCount": 3896
+  },
+  {
+    "UserId": 1,
+    "title": "Creamy Chicken Alfredo",
+    "description": "Chop vegetables finely",
+    "ingredients": "chocolate chips",
+    "steps": "Chop onions",
+    "cookTime": 10214,
+    "viewsCount": 2591
+  },
+  {
+    "UserId": 1,
+    "title": "Vegetarian Chili",
+    "description": "Whisk eggs until fluffy",
+    "ingredients": "eggs",
+    "steps": "Preheat oven to 350°F",
+    "cookTime": 8987,
+    "viewsCount": 1960
+  },
+  {
+    "UserId": 1,
+    "title": "Beef Stroganoff",
+    "description": "Simmer sauce on low heat for 20 minutes",
+    "ingredients": "pepper",
+    "steps": "Whisk eggs and milk together",
+    "cookTime": 32103,
+    "viewsCount": 6751
+  },
+  {
+    "UserId": 1,
+    "title": "Beef Stroganoff",
+    "description": "Whisk eggs until fluffy",
+    "ingredients": "vanilla extract",
+    "steps": "Mix flour and sugar",
+    "cookTime": 26510,
+    "viewsCount": 1444
+  },
+  {
+    "UserId": 1,
+    "title": "Beef Stroganoff",
+    "description": "Bake at 350°F for 30 minutes",
+    "ingredients": "chocolate chips",
+    "steps": "Whisk eggs and milk together",
+    "cookTime": 16944,
+    "viewsCount": 9831
+  },
+  {
+    "UserId": 1,
+    "title": "Classic Spaghetti Bolognese",
+    "description": "Whisk eggs until fluffy",
+    "ingredients": "sugar",
+    "steps": "Preheat oven to 350°F",
+    "cookTime": 15305,
+    "viewsCount": 6166
+  },
+  {
+    "UserId": 1,
+    "title": "Lemon Garlic Shrimp Pasta",
+    "description": "Whisk eggs until fluffy",
+    "ingredients": "baking powder",
+    "steps": "Saute garlic in olive oil",
+    "cookTime": 13603,
+    "viewsCount": 5289
+  },
+  {
+    "UserId": 1,
+    "title": "Beef Stroganoff",
+    "description": "Whisk eggs until fluffy",
+    "ingredients": "milk",
+    "steps": "Whisk eggs and milk together",
+    "cookTime": 15535,
+    "viewsCount": 6765
+  },
+  {
+    "UserId": 1,
+    "title": "Beef Stroganoff",
+    "description": "Mix flour and sugar in a bowl",
+    "ingredients": "vanilla extract",
+    "steps": "Whisk eggs and milk together",
+    "cookTime": 14185,
+    "viewsCount": 9189
+  }
+]
