@@ -9,6 +9,13 @@ const recipesSlice = createSlice({
     popularRecipes: [],
     details: {},
     myRecipe: [],
+    aiRecipe: {
+      title: "",
+      description: "",
+      ingredients: "",
+      steps: "",
+      cookTime: ""
+    },
     isLoading: false,
   },
   reducers: {
@@ -24,6 +31,22 @@ const recipesSlice = createSlice({
     setMyRecipe(state, action) {
       state.myRecipe = action.payload;
     },
+    setAiRecipe(state, action) {
+      state.aiRecipe.title = action.payload.title;
+      state.aiRecipe.description = action.payload.description;
+      state.aiRecipe.ingredients = action.payload.ingredients;
+      state.aiRecipe.steps = action.payload.steps;
+      state.aiRecipe.cookTime = action.payload.cookTime;
+    },
+    resetAiRecipe(state) {
+      state.aiRecipe = {
+        title: "",
+        description: "",
+        ingredients: "",
+        steps: "",
+        cookTime: ""
+      };
+    },
     setLoading(state, action) {
       state.isLoading = action.payload;
     },
@@ -35,6 +58,8 @@ export const {
   setPopularRecipes,
   setDetails,
   setMyRecipe,
+  setAiRecipe,
+  resetAiRecipe,
   setLoading,
 } = recipesSlice.actions;
 export const recipesReducer = recipesSlice.reducer;
@@ -200,6 +225,28 @@ export const deleteRecipe = (id) => {
       dispatch(fetchMyRecipe());
       toast.success(data.message);
     } catch (error) {
+      toast.error(error.response.data.message || error.message);
+    }
+  };
+};
+
+export const fetchAiRecipe = (ingredients) => {
+  return async (dispatch) => {
+    try {
+      dispatch(setLoading(true));
+      const { data } = await axios({
+        method: "post",
+        url: `/recipes/ai-search`,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        data: { ingredients },
+      });
+      dispatch(setLoading(false));
+      dispatch(setAiRecipe(data));
+      return data;
+    } catch (error) {
+      dispatch(setLoading(false));
       toast.error(error.response.data.message || error.message);
     }
   };

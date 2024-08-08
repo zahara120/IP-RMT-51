@@ -185,12 +185,12 @@ export default function RecipeModal({ action, isOpen, onClose, recipeId }) {
             </ModalBody>
 
             <ModalFooter>
-              <Button color="danger" variant="flat" onPress={onClose}>
+              <Button color="danger" variant="light" onPress={onClose}>
                 Close
               </Button>
               <Button
                 type="submit"
-                className="bg-black text-white"
+                className="bg-indigo-400 text-white"
                 variant="flat"
                 onClick={(e) => handleSubmit(e)}
                 isLoading={isLoading}
