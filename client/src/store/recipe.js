@@ -6,6 +6,7 @@ const recipesSlice = createSlice({
   initialState: {
     allRecipes: [],
     popularRecipes: [],
+    details: {},
   },
   reducers: {
     setAllRecipes(state, action) {
@@ -14,10 +15,13 @@ const recipesSlice = createSlice({
     setPopularRecipes(state, action) {
       state.popularRecipes = action.payload;
     },
+    setDetails(state, action) {
+      state.details = action.payload;
+    },
   },
 });
 
-export const { setAllRecipes, setPopularRecipes } = recipesSlice.actions;
+export const { setAllRecipes, setPopularRecipes, setDetails } = recipesSlice.actions;
 export const recipesReducer = recipesSlice.reducer;
 export const fetchAllRecipes = (search, keyword, sort, page) => {
   return async (dispatch) => {
@@ -44,6 +48,17 @@ export const fetchPopularRecipes = () => {
     try {
       const { data } = await axios.get("/recipes/popular");
       dispatch(setPopularRecipes(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const fetchDetails = (id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`/recipes/${id}`);
+      dispatch(setDetails(data));
     } catch (error) {
       console.log(error);
     }

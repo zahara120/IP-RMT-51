@@ -20,7 +20,7 @@ export default function Headline() {
     <>
       <section className="mt-10">
         <div className="col-span-2 flex flex-col md:flex-row gap-12">
-          <Link to="/home" className="h-fit w-full">
+          <Link to={`/details/${data?.data[0]?.id}`} className="h-fit w-full">
             <Card className="w-full">
               <Image
                 removeWrapper
@@ -42,7 +42,7 @@ export default function Headline() {
             </Card>
           </Link>
           <div className="grid grid-rows-2 gap-4 w-full">
-            <Link to="/home" className="h-fit w-full">
+            <Link to={`/details/${data?.data[1]?.id}`} className="h-fit w-full">
               <Card className="w-full">
                 <Image
                   removeWrapper
@@ -64,7 +64,7 @@ export default function Headline() {
               </Card>
             </Link>
             <div className="flex gap-4 w-full">
-              <Link to="/home" className="h-fit w-full">
+              <Link to={`/details/${data?.data[2]?.id}`} className="h-fit w-full">
                 <Card className="w-full">
                   <Image
                     removeWrapper
@@ -85,7 +85,7 @@ export default function Headline() {
                   </CardHeader>
                 </Card>
               </Link>
-              <Link to="/home" className="h-fit w-full">
+              <Link to={`/details/${data?.data[3]?.id}`} className="h-fit w-full">
                 <Card className="w-full">
                   <Image
                     removeWrapper

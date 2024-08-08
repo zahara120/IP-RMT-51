@@ -23,7 +23,7 @@ export const Navbar = (props) => {
         <nav className="flex justify-between items-center py-2 border-b-2 border-slate-200">
           <div className="flex-grow text-center">
             <h1 className="text-3xl">
-              <Link to="/">
+              <Link to="/home">
                 Quick Recipe<span className="font-bold"> Pro</span>
               </Link>
             </h1>

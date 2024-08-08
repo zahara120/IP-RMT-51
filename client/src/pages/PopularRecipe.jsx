@@ -25,7 +25,7 @@ export const PopularRecipe = () => {
         </h1>
         <div className="grid grid-cols-3 gap-7">
           {data?.map((el) => (
-            <Link to='/' key={el.id}>
+            <Link to={`/details/${el.id}`} key={el.id}>
               <Card
                 className="w-full"
                 shadow="sm"
