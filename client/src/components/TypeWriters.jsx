@@ -25,14 +25,34 @@ export default function Typewriters({
         </h3>
         <div className="flex flex-col gap-4 w-full">
           <div className="flex items-center justify-between w-full">
-            <strong className="text-2xl">{title}</strong>
+            <strong className="text-2xl">
+              <Typewriter
+                words={[title]}
+                loop={1}
+                cursor
+                cursorStyle="|"
+                typeSpeed={10}
+                deleteSpeed={0}
+                delaySpeed={1000}
+              />
+            </strong>
             <span className="flex items-center gap-2">
               <FontAwesomeIcon icon="fa-solid fa-clock" />
               {convertTime(cookTime)}
             </span>
           </div>
 
-          <p>{description}</p>
+          <p>
+            <Typewriter
+              words={[description]}
+              loop={1}
+              cursor
+              cursorStyle="|"
+              typeSpeed={10}
+              deleteSpeed={0}
+              delaySpeed={1000}
+            />
+          </p>
 
           <p>
             <strong className="text-lg">Ingredients:</strong>
