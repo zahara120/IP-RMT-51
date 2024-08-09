@@ -10,8 +10,7 @@ import {
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAiRecipe, resetAiRecipe } from "../store/recipe";
-import { convertTime } from "../../helpers/time";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Typewriters from "./TypeWriters";
 
 export default function AiModel({ isOpen, onClose }) {
   const [ingredients, setIngredients] = useState("");
@@ -49,32 +48,13 @@ export default function AiModel({ isOpen, onClose }) {
                 />
                 {answer.title.length ? (
                   <>
-                    <div className="border-2 rounded-xl p-4 w-full">
-                      <h3 className="text-xl font-bold mb-4">
-                        AI Recipe Recommendation
-                      </h3>
-                      <div className="flex flex-col gap-4 w-full">
-                        <div className="flex items-center justify-between w-full">
-                          <strong className="text-2xl">{answer.title}</strong>
-                          <span className="flex items-center gap-2">
-                            <FontAwesomeIcon icon="fa-solid fa-clock" />
-                            {convertTime(answer.cookTime)}
-                          </span>
-                        </div>
-
-                        <p>{answer.description}</p>
-
-                        <p>
-                          <strong className="text-lg">Ingredients:</strong>
-                          <span>{answer.ingredients}</span>
-                        </p>
-
-                        <p>
-                          <strong className="text-lg">Instructions:</strong>
-                          <span>{answer.steps}</span>
-                        </p>
-                      </div>
-                    </div>
+                    <Typewriters
+                      title={answer.title}
+                      cookTime={answer.cookTime}
+                      description={answer.description}
+                      ingredients={answer.ingredients}
+                      steps={answer.steps}
+                    />
                   </>
                 ) : null}
               </ModalBody>
