@@ -8,37 +8,33 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
-  Input,
   Textarea,
 } from "@nextui-org/react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addReview } from "../store/recipe";
+import { Rating } from "@smastrom/react-rating";
+
 export default function ReviewCard({ data }) {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.recipes.isLoading);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [formData, setFormData] = useState({
-    rating: "",
-    comment: "",
-  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const [rating, setRating] = useState(3);
+  const [comment, setComment] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const resp = dispatch(addReview(data.id, formData));
+
+    const resp = dispatch(
+      addReview(data.id, {
+        rating,
+        comment,
+      })
+    );
     if (resp) {
-      setFormData({
-        rating: "",
-        comment: "",
-      });
+      setRating(4);
+      setComment("");
       onOpenChange();
     }
   };
@@ -52,10 +48,10 @@ export default function ReviewCard({ data }) {
         )}
         {isLogin && (
           <>
-          <Button className="bg-indigo-400 text-white" onPress={onOpen}>
-            Add Review
-            <FontAwesomeIcon icon="fa-regular fa-star" />
-          </Button>
+            <Button className="bg-indigo-400 text-white" onPress={onOpen}>
+              Add Review
+              <FontAwesomeIcon icon="fa-regular fa-star" />
+            </Button>
           </>
         )}
       </div>
@@ -98,21 +94,18 @@ export default function ReviewCard({ data }) {
                 Add Review
               </ModalHeader>
               <ModalBody>
-                <Input
-                  isRequired
-                  label="Rating"
+                <Rating
                   name="rating"
-                  type="number"
-                  max={5}
-                  onChange={handleChange}
-                  value={formData.rating}
+                  style={{ maxWidth: 180 }}
+                  value={rating}
+                  onChange={setRating}
                 />
                 <Textarea
                   isRequired
                   label="Comment"
                   name="comment"
-                  onChange={handleChange}
-                  value={formData?.comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  value={comment}
                 />
               </ModalBody>
               <ModalFooter>
