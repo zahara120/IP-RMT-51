@@ -72,7 +72,7 @@ export const ListRecipe = () => {
             </select>
           </div>
         </div>
-        <div className="grid grid-cols-4 gap-7">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-7">
           {data?.data?.map((el) => (
             <Link to={`/details/${el?.id}`} key={el.id}>
               <Card

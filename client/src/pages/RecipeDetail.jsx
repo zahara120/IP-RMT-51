@@ -53,7 +53,7 @@ export const RecipeDetail = (props) => {
         </div>
         <div className="flex flex-col gap-4 my-4">
           <h1 className="text-3xl">{data.title}</h1>
-          <div className="flex justify-between items-center gap-2">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
             <span className="flex items-center gap-2">
               <Avatar src="https://d2u8k2ocievbld.cloudfront.net/memojis/male/1.png" />
               By: {data?.User?.username}

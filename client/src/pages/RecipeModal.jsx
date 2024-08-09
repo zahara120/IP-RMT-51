@@ -117,7 +117,7 @@ export default function RecipeModal({ action, isOpen, onClose, recipeId }) {
 
   return (
     <>
-      <Modal isOpen={isOpen} onOpenChange={onClose} placement="top-center">
+      <Modal isOpen={isOpen} onOpenChange={onClose} placement="center">
         <ModalContent>
           <>
             <ModalHeader className="flex flex-col gap-1">
