@@ -16,6 +16,17 @@ module.exports = (sequelize, DataTypes) => {
       const limit = 10;
       let pageNumber = 1;
       let queryWhere = {};
+
+      if (keyword) {
+        queryWhere[search] = {
+          [Op.iLike]: `%${keyword}%`,
+        };
+      }
+
+      const totalCount = await Recipe.count({
+        where: queryWhere,
+      });
+
       let query = {
         include: [
           {
@@ -36,12 +47,6 @@ module.exports = (sequelize, DataTypes) => {
         limit: limit,
       };
 
-      if (keyword) {
-        queryWhere[search] = {
-          [Op.iLike]: `%${keyword}%`,
-        };
-      }
-
       if (sort) {
         const sorting = sort[0] === "-" ? "DESC" : "ASC";
         const column = sorting === "DESC" ? sort.slice(1) : sort;
@@ -54,17 +59,14 @@ module.exports = (sequelize, DataTypes) => {
           query.offset = (pageNumber - 1) * limit;
         }
       }
-      console.log(search, '<<< search');
-      
-      console.log(queryWhere, '<<< queryWhere');
-      
 
-      const { count, rows } = await Recipe.findAndCountAll(query);
+      const rows = await Recipe.findAll(query);
+
       return {
         page: pageNumber,
         data: rows,
-        totalData: count,
-        totalPage: Math.ceil(count / limit),
+        totalData: totalCount,
+        totalPage: Math.ceil(totalCount / limit),
         dataPerPage: limit,
       };
     }
