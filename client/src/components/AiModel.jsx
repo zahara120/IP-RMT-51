@@ -26,7 +26,7 @@ export default function AiModel({ isOpen, onClose }) {
   };
   return (
     <>
-      <Modal size="2xl" isOpen={isOpen} onClose={onClose}>
+      <Modal size="2xl" isOpen={isOpen} onClose={onClose} placement="center">
         <ModalContent>
           {(onClose) => (
             <>

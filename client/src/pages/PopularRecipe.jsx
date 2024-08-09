@@ -18,7 +18,7 @@ export const PopularRecipe = () => {
         <h1 className="text-3xl font-bold flex items-center gap-2">
           Most Popular <FontAwesomeIcon icon="fa-solid fa-fire-flame-curved" />
         </h1>
-        <div className="grid grid-cols-3 gap-7">
+        <div className="grid md:grid-cols-3 gap-7">
           {data?.map((el) => (
             <Link to={`/details/${el.id}`} key={el.id}>
               <Card
@@ -26,7 +26,6 @@ export const PopularRecipe = () => {
                 shadow="sm"
                 key={el.id}
                 isPressable
-                onPress={() => console.log("item pressed")}
               >
                 <CardBody className="overflow-visible p-0">
                   <Image

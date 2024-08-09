@@ -31,7 +31,7 @@ export const Navbar = (props) => {
           </div>
         </nav>
         <div className="flex items-center justify-between gap-4 py-4 border-b-2 border-slate-200">
-          <div className="hidden md:flex items-center gap-12 text-slate-400">
+          <div className="flex items-center gap-12 text-slate-400">
             {isLogin && (
               <Button
                 onPress={onOpen}
