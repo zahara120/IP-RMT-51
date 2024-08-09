@@ -8,37 +8,33 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
-  Input,
   Textarea,
 } from "@nextui-org/react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addReview } from "../store/recipe";
+import { Rating } from "@smastrom/react-rating";
+
 export default function ReviewCard({ data }) {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.recipes.isLoading);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [formData, setFormData] = useState({
-    rating: "",
-    comment: "",
-  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const [rating, setRating] = useState(3);
+  const [comment, setComment] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const resp = dispatch(addReview(data.id, formData));
+
+    const resp = dispatch(
+      addReview(data.id, {
+        rating,
+        comment,
+      })
+    );
     if (resp) {
-      setFormData({
-        rating: "",
-        comment: "",
-      });
+      setRating(4);
+      setComment("");
       onOpenChange();
     }
   };
@@ -52,10 +48,10 @@ export default function ReviewCard({ data }) {
         )}
         {isLogin && (
           <>
-          <Button className="bg-indigo-400 text-white" onPress={onOpen}>
-            Add Review
-            <FontAwesomeIcon icon="fa-regular fa-star" />
-          </Button>
+            <Button className="bg-indigo-400 text-white" onPress={onOpen}>
+              Add Review
+              <FontAwesomeIcon icon="fa-regular fa-star" />
+            </Button>
           </>
         )}
       </div>
@@ -72,20 +68,7 @@ export default function ReviewCard({ data }) {
                 src: "https://d2u8k2ocievbld.cloudfront.net/memojis/male/1.png",
               }}
             />
-            <div className="flex items-center">
-              {Array.from({ length: el.rating }, (_, i) => (
-                <svg
-                  key={i}
-                  className="w-4 h-4 text-yellow-300 ms-1"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 22 20"
-                >
-                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                </svg>
-              ))}
-            </div>
+            <Rating style={{ maxWidth: 120 }} value={el.rating} readOnly />
             <p>{el.comment}</p>
           </div>
         ))}
@@ -98,21 +81,19 @@ export default function ReviewCard({ data }) {
                 Add Review
               </ModalHeader>
               <ModalBody>
-                <Input
+                <Rating
                   isRequired
-                  label="Rating"
                   name="rating"
-                  type="number"
-                  max={5}
-                  onChange={handleChange}
-                  value={formData.rating}
+                  style={{ maxWidth: 180 }}
+                  value={rating}
+                  onChange={setRating}
                 />
                 <Textarea
                   isRequired
                   label="Comment"
                   name="comment"
-                  onChange={handleChange}
-                  value={formData?.comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  value={comment}
                 />
               </ModalBody>
               <ModalFooter>
