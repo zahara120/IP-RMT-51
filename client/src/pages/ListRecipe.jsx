@@ -92,7 +92,7 @@ export const ListRecipe = () => {
                     src={el.imageUrl}
                   />
                 </CardBody>
-                <CardFooter className="text-small flex flex-col gap-4 items-start h-[100px] overflow-hidden">
+                <CardFooter className="text-small text-start flex flex-col gap-4 items-start h-[100px] overflow-hidden">
                   <div className="flex items-center justify-between w-full">
                     <b className="w-[120px] overflow-hidden whitespace-nowrap text-ellipsis">
                       {el.title}

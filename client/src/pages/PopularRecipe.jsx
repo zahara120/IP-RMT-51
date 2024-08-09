@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  Image,
-} from "@nextui-org/react";
+import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,7 +38,7 @@ export const PopularRecipe = () => {
                     src={el.imageUrl}
                   />
                 </CardBody>
-                <CardFooter className="text-small flex flex-col gap-4 items-start">
+                <CardFooter className="text-small text-start flex flex-col gap-4 items-start h-[100px] overflow-hidden">
                   <div className="flex items-center justify-between w-full">
                     <b>{el.title}</b>
                     <p className="text-default-500 flex items-center gap-2">
@@ -51,7 +46,9 @@ export const PopularRecipe = () => {
                       {convertTime(el.cookTime)}
                     </p>
                   </div>
-                  <p className="text-default-500">{el.description}</p>
+                  <p className="text-default-500 overflow-hidden whitespace-nowrap text-ellipsis w-[300px]">
+                    {el.description}
+                  </p>
                 </CardFooter>
               </Card>
             </Link>
